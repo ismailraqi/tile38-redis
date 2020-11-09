@@ -20,7 +20,14 @@ func main() {
 		b, _ := json.Marshal(event)
 		fmt.Printf("event: %s\n", b)
 	}
+	// add a couple of points named 'truck1' and 'truck2' to a collection named 'fleet'.
+	if err := tile38.Keys.Set("fleet", "truck1").Point(33.5123, -112.2693).Do(); err != nil {
+		log.Fatal(err)
+	}
 
+	if err := tile38.Keys.Set("fleet", "truck2").Point(33.4626, -112.1695).Do(); err != nil {
+		log.Fatal(err)
+	}
 	if err := tile38.Geofence.Nearby("fleet", 33.462, -112.268, 6000).
 		Actions(t38c.Enter, t38c.Exit).
 		Do(context.Background(), handler); err != nil {
